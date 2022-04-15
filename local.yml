@@ -1,0 +1,41 @@
+ ---
+ - hosts: localhost
+   connection: local
+   become: true
+
+   tasks:
+
+   - name: install packages
+     package:
+       name:
+         - htop
+         - byobu
+         - zsh
+         - ansible
+
+   - name: copy custom .zshrc file
+     copy:
+       src: files/zsshrc
+       dest: /home/onigiri/.zshrc
+       owner: onigiri
+       group: onigiri
+
+   - name: add ansible user
+     user:
+       name: tractor
+       system: yes
+
+   - name: set up sudo for ansible user
+     copy:
+       src: files/sudoer_tractor
+       dest: /etc/sudoers.d/tractor
+       owner: root
+       group: root
+       mode: 0440
+
+   - name: add ansible-pull cron job
+     cron:
+       name: ansible auto-provision
+       user: tractor
+       minute: "*/10"
+       job: ansible-pull -o -U https://github.com/onigiri070/ansible_workstation.git
