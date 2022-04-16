@@ -19,14 +19,21 @@
 
    - name: copy custom .zshrc file
      copy:
-       src: files/zsshrc
+       src: files/zshrc
        dest: /home/onigiri/.zshrc
+       owner: onigiri
+       group: onigiri
+
+   - name: copy .zsh_aliases file
+     copy:
+       src: files/zsh_aliases
+       dest: /home/onigiri/.zsh_aliases
        owner: onigiri
        group: onigiri
 
    - name: copy custom zimfw file
      copy:
-       src: files/.zrimrc
+       src: files/zrimrc
        dest: /home/onigiri/.zimrc
        owner: onigiri
        group: onigiri
