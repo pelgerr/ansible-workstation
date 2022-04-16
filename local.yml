@@ -1,59 +1,59 @@
- ---
- - hosts: localhost
-   connection: local
-   become: true
+---
+- hosts: localhost
+  connection: local
+  become: true
 
-   tasks:
+  tasks:
+  - name: install packages
+    package:
+      name:
+        - htop
+        - byobu
+        - zsh
+        - ansible
 
-   - name: install packages
-     package:
-       name:
-         - htop
-         - byobu
-         - zsh
-         - ansible
+  - name: install Zimfw
+    become_user: onigiri
+    shell:
+      cmd: curl -fsSL https://raw.githubusercontent.com/zimfw/install/master/install.zsh | zsh
 
-   - name: install Zimfw
-     shell:
-       cmd: curl -fsSL https://raw.githubusercontent.com/zimfw/install/master/install.zsh | zsh
+  - name: copy custom .zshrc file
+    copy:
+      src: files/zshrc
+      dest: /home/onigiri/.zshrc
+      owner: onigiri
+      group: onigiri
 
-   - name: copy custom .zshrc file
-     copy:
-       src: files/zshrc
-       dest: /home/onigiri/.zshrc
-       owner: onigiri
-       group: onigiri
+  - name: copy .zsh_aliases file
+    copy:
+      src: files/zsh_aliases
+      dest: /home/onigiri/.zsh_aliases
+      owner: onigiri
+      group: onigiri
 
-   - name: copy .zsh_aliases file
-     copy:
-       src: files/zsh_aliases
-       dest: /home/onigiri/.zsh_aliases
-       owner: onigiri
-       group: onigiri
+  - name: copy custom zimfw file
+    copy:
+      src: files/zrimrc
+      dest: /home/onigiri/.zimrc
+      owner: onigiri
+      group: onigiri
 
-   - name: copy custom zimfw file
-     copy:
-       src: files/zrimrc
-       dest: /home/onigiri/.zimrc
-       owner: onigiri
-       group: onigiri
-
-#   - name: add ansible user
-#     user:
-#       name: tractor
-#       system: yes
+#  - name: add ansible user
+#    user:
+#      name: tractor
+#      system: yes
 #
-#   - name: set up sudo for ansible user
-#     copy:
-#       src: files/sudoer_tractor
-#       dest: /etc/sudoers.d/tractor
-#       owner: root
-#       group: root
-#       mode: 0440
+#  - name: set up sudo for ansible user
+#    copy:
+#      src: files/sudoer_tractor
+#      dest: /etc/sudoers.d/tractor
+#      owner: root
+#      group: root
+#      mode: 0440
 #
-#   - name: add ansible-pull cron job
-#     cron:
-#       name: ansible auto-provision
-#       user: tractor
-#       minute: "*/10"
-#       job: ansible-pull -o -U https://gitlab.com/onigiri070/ansible_workstation.git 
+#  - name: add ansible-pull cron job
+#    cron:
+#      name: ansible auto-provision
+#      user: tractor
+#      minute: "*/10"
+#      job: ansible-pull -o -U https://gitlab.com/onigiri070/ansible_workstation.git 
