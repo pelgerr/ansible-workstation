@@ -39,9 +39,9 @@
       group: onigiri
 
   - name: change shell to zsh
-    become_user: onigiri
-    shell:
-      cmd: chsh -s /usr/bin/zsh
+    user: 
+      name: onigiri
+      shell: /usr/bin/zsh
 
 #  - name: add ansible user
 #    user:
