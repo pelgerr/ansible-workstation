@@ -33,10 +33,15 @@
 
   - name: copy custom zimfw file
     copy:
-      src: files/zrimrc
+      src: files/zimrc
       dest: /home/onigiri/.zimrc
       owner: onigiri
       group: onigiri
+
+  - name: change shell to zsh
+    become_user: onigiri
+    shell:
+      cmd: chsh -s /usr/bin/zsh
 
 #  - name: add ansible user
 #    user:
