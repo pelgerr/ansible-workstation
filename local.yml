@@ -12,10 +12,10 @@
         - zsh
         - ansible
 
-  - name: install Zimfw
-    become_user: onigiri
-    shell:
-      cmd: curl -fsSL https://raw.githubusercontent.com/zimfw/install/master/install.zsh | zsh
+          #  - name: install Zimfw
+          #    become_user: onigiri
+          #    shell:
+          #      cmd: curl -fsSL https://raw.githubusercontent.com/zimfw/install/master/install.zsh | zsh
 
   - name: copy custom .zshrc file
     copy:
