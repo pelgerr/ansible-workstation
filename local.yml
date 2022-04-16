@@ -13,13 +13,24 @@
          - zsh
          - ansible
 
-#   - name: copy custom .zshrc file
-#     copy:
-#       src: files/zsshrc
-#       dest: /home/onigiri/.zshrc
-#       owner: onigiri
-#       group: onigiri
-#
+   - name: install Zimfw
+     shell:
+       cmd: curl -fsSL https://raw.githubusercontent.com/zimfw/install/master/install.zsh | zsh
+
+   - name: copy custom .zshrc file
+     copy:
+       src: files/zsshrc
+       dest: /home/onigiri/.zshrc
+       owner: onigiri
+       group: onigiri
+
+   - name: copy custom zimfw file
+     copy:
+       src: files/.zrimrc
+       dest: /home/onigiri/.zimrc
+       owner: onigiri
+       group: onigiri
+
 #   - name: add ansible user
 #     user:
 #       name: tractor
@@ -38,4 +49,4 @@
 #       name: ansible auto-provision
 #       user: tractor
 #       minute: "*/10"
-#       job: ansible-pull -o -U https://github.com/onigiri070/ansible_workstation.git
+#       job: ansible-pull -o -U https://gitlab.com/onigiri070/ansible_workstation.git 
