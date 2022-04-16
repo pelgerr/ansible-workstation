@@ -10,12 +10,17 @@
         - htop
         - byobu
         - zsh
-        - ansible
 
-          #  - name: install Zimfw
-          #    become_user: onigiri
-          #    shell:
-          #      cmd: curl -fsSL https://raw.githubusercontent.com/zimfw/install/master/install.zsh | zsh
+  - name: check if zimrc exists
+    stat:
+      path: "/home/onigiri/.zimrc"
+    register: zimrc_data
+
+  - name: install Zimfw if zimrc does not exist
+    become_user: onigiri
+    shell:
+      cmd: curl -fsSL https://raw.githubusercontent.com/zimfw/install/master/install.zsh | zsh
+    when: not zimrc_data.stat.exists
 
   - name: copy custom .zshrc file
     copy:
