@@ -14,7 +14,7 @@
     - name: update deb repositories
       apt:
         update_cache: yes
-        upgradey: yes
+        upgrade: yes
         force: yes
       when: ansible_facts['os_family']|lower == 'debian'
 
@@ -22,7 +22,6 @@
       dnf:
         update_cache: yes
         update_only: yes
-        force: yes
       when: ansible_facts['distribution']|lower == 'fedora'
 
   tasks:
