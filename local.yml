@@ -18,6 +18,13 @@
         force: yes
       when: ansible_facts['os_family']|lower == 'debian'
 
+    - name: update fedora repositories
+      dnf:
+        update_cache: yes
+        upgrade: yes
+        force: yes
+      when: ansible_facts['distribution']|lower == 'fedora'
+
   tasks:
   - name: install packages
     package:
