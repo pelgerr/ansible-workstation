@@ -14,7 +14,7 @@
     - name: update deb repositories
       apt:
         update_cache: yes
-        upgrade: yes
+        update_only: yes
         force: yes
       when: ansible_facts['os_family']|lower == 'debian'
 
