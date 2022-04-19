@@ -25,11 +25,12 @@
       when: ansible_facts['distribution']|lower == 'fedora'
 
   tasks:
-  - name: install packages
+  - name: install packages - base
     package:
       name:
         - htop
         - byobu
+        - exa
         - zsh
 
   - name: check if zimrc exists
@@ -57,12 +58,29 @@
       owner: onigiri
       group: onigiri
 
-  - name: copy .zsh_aliases file
+  - name: copy .zsh_aliases file - arch
     copy:
-      src: files/zsh_aliases
+      src: files/zsh_aliases_arch
       dest: /home/onigiri/.zsh_aliases
       owner: onigiri
       group: onigiri
+      when: ansible_facts['os_family']|lower == 'archlinux'
+
+  - name: copy .zsh_aliases file - deb
+    copy:
+      src: files/zsh_aliases_deb
+      dest: /home/onigiri/.zsh_aliases
+      owner: onigiri
+      group: onigiri
+      when: ansible_facts['os_family']|lower == 'debian'
+
+  - name: copy .zsh_aliases file - fed
+    copy:
+      src: files/zsh_aliases_fed
+      dest: /home/onigiri/.zsh_aliases
+      owner: onigiri
+      group: onigiri
+      when: ansible_facts['os_family']|lower == 'fedora'
 
   - name: copy .zprofile file
     copy:
