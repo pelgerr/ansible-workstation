@@ -63,7 +63,7 @@
       dest: /home/onigiri/.zsh_aliases
       owner: onigiri
       group: onigiri
-      when: ansible_facts['os_family']|lower == 'archlinux'
+    when: ansible_facts['os_family']|lower == 'archlinux'
 
   - name: copy .zsh_aliases file - deb
     copy:
@@ -71,7 +71,7 @@
       dest: /home/onigiri/.zsh_aliases
       owner: onigiri
       group: onigiri
-      when: ansible_facts['os_family']|lower == 'debian'
+    when: ansible_facts['os_family']|lower == 'debian'
 
   - name: copy .zsh_aliases file - fed
     copy:
@@ -79,7 +79,7 @@
       dest: /home/onigiri/.zsh_aliases
       owner: onigiri
       group: onigiri
-      when: ansible_facts['os_family']|lower == 'fedora'
+    when: ansible_facts['os_family']|lower == 'fedora'
 
   - name: copy .zprofile file
     copy:
