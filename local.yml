@@ -30,7 +30,6 @@
       name:
         - htop
         - byobu
-        - exa
         - zsh
 
   - name: check if zimrc exists
