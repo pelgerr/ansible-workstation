@@ -1,1 +1,1 @@
-up='yay -Syu'
+alias up='yay -Syu'
