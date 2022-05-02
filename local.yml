@@ -29,13 +29,21 @@
     package:
       name:
         - htop
-        - byobu
+        - sakura
         - neovim
+        - fonts-ibm-plex
 
   - name: copy custom .bashrc file
     copy:
       src: files/bash/bashrc
       dest: /home/onigiri/.bashrc
+      owner: onigiri
+      group: onigiri
+
+  - name: copy sakura config file
+    copy:
+      src: files/config/sakura.conf
+      dest: /home/onigiri/.config/sakura/sakura.conf
       owner: onigiri
       group: onigiri
 
