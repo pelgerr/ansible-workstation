@@ -115,3 +115,6 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+# Add /home/onigiri/.local/bin to PATH
+export PATH=$PATH:/home/onigiri/.local/bin
