@@ -30,68 +30,38 @@
       name:
         - htop
         - byobu
-        - zsh
+        - neovim
 
-  - name: check if zimrc exists
-    stat:
-      path: "/home/onigiri/.zimrc"
-    register: zimrc_data
-
-  - name: install Zimfw if zimrc does not exist
-    become_user: onigiri
-    shell:
-      cmd: curl -fsSL https://raw.githubusercontent.com/zimfw/install/master/install.zsh | zsh
-    when: not zimrc_data.stat.exists
-
-  - name: copy custom zimfw file
+  - name: copy custom .bashrc file
     copy:
-      src: files/zimrc
-      dest: /home/onigiri/.zimrc
+      src: files/bash/bashrc
+      dest: /home/onigiri/.bashrc
       owner: onigiri
       group: onigiri
 
-  - name: copy custom .zshrc file
+  - name: copy .bash_aliases file - arch
     copy:
-      src: files/zshrc
-      dest: /home/onigiri/.zshrc
-      owner: onigiri
-      group: onigiri
-
-  - name: copy .zsh_aliases file - arch
-    copy:
-      src: files/zsh_aliases_arch
-      dest: /home/onigiri/.zsh_aliases
+      src: files/bash/bash_aliases_arch
+      dest: /home/onigiri/.bash_aliases
       owner: onigiri
       group: onigiri
     when: ansible_facts['os_family']|lower == 'archlinux'
 
-  - name: copy .zsh_aliases file - deb
+  - name: copy .bash_aliases file - deb
     copy:
-      src: files/zsh_aliases_deb
-      dest: /home/onigiri/.zsh_aliases
+      src: files/bash/bash_aliases_deb
+      dest: /home/onigiri/.bash_aliases
       owner: onigiri
       group: onigiri
     when: ansible_facts['os_family']|lower == 'debian'
 
-  - name: copy .zsh_aliases file - fed
+  - name: copy .bash_aliases file - fed
     copy:
-      src: files/zsh_aliases_fed
-      dest: /home/onigiri/.zsh_aliases
+      src: files/bash/bash_aliases_fed
+      dest: /home/onigiri/.bash_aliases
       owner: onigiri
       group: onigiri
     when: ansible_facts['os_family']|lower == 'fedora'
-
-  - name: copy .zprofile file
-    copy:
-      src: files/zprofile
-      dest: /home/onigiri/.zprofile
-      owner: onigiri
-      group: onigiri
-
-  - name: change shell to zsh
-    user: 
-      name: onigiri
-      shell: /usr/bin/zsh
 
 #  - name: add ansible user
 #    user:
@@ -100,7 +70,7 @@
 #
 #  - name: set up sudo for ansible user
 #    copy:
-#      src: files/sudoer_tractor
+#      src: files/bash/sudoer_tractor
 #      dest: /etc/sudoers.d/tractor
 #      owner: root
 #      group: root
