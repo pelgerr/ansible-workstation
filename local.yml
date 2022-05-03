@@ -51,7 +51,8 @@
     when: ansible_facts['distribution']|lower == 'debian'
 
   - name: check if cargo is installed
-    shell: command -v cargo
+    shell: 
+      cmd: cargo --version
     register: cargo_exists
     ignore_errors: 'yes'
 
