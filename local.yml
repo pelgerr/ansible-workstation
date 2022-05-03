@@ -32,6 +32,11 @@
       owner: onigiri
       group: onigiri
 
+  - name: create sakura config directory
+    file: 
+      path: /home/onigiri/.config/sakura
+      state: directory
+
   - name: copy sakura config file
     copy:
       src: files/config/sakura/sakura.conf
