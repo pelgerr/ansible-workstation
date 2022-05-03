@@ -110,7 +110,7 @@
 
   - name: source cargo and nvm
     shell:
-      cmd: source /home/onigiri/.cargo/env && source /home/onigiri/.nvm/nvm.sh 
+      cmd: . /home/onigiri/.cargo/env && . /home/onigiri/.nvm/nvm.sh 
 
   - name: install node
     shell:
