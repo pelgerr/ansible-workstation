@@ -23,6 +23,8 @@
         update_cache: yes
         update_only: yes
       when: ansible_facts['distribution']|lower == 'fedora'
+  vars:
+    user: "{{ ansible_user_id }}"
 
   tasks:
   - name: install packages - base
