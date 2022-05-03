@@ -24,6 +24,7 @@
         update_only: yes
       when: ansible_facts['distribution']|lower == 'fedora'
 
+  tasks:
   - name: copy custom .bashrc file
     copy:
       src: files/bash/bashrc
