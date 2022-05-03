@@ -66,7 +66,7 @@
     when: cargo_exists is failed
     get_url: 
       url: https://sh.rustup.rs
-      dest: /tmp/sh.rustup.rs
+      dest: /home/onigiri/Downloads/tmp/sh.rustup.rs
       mode: '0755'
       force: 'yes'
     tags: 
@@ -74,7 +74,7 @@
 
   - name: install rust & cargo
     when: cargo_exists is failed
-    shell: /tmp/sh.rustup.rs -y
+    shell: /home/onigiri/Downloads/tmp/sh.rustup.rs -y
     tags:
       - rust
 
@@ -88,7 +88,7 @@
     when: nvm_exists is failed
     get_url: 
       url: https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh
-      dest: /tmp/nvm-install.sh
+      dest: /home/onigiri/Downloads/tmp/nvm-install.sh
       mode: '0755'
       force: 'yes'
     tags: 
@@ -96,7 +96,7 @@
 
   - name: install nvm
     when: nvm_exists is failed
-    shell: /tmp/nvm-install.sh
+    shell: /home/onigiri/Downloads/tmp/nvm-install.sh
     tags:
       - node 
 
