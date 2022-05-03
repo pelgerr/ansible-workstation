@@ -80,7 +80,7 @@
 
   - name: install rust & cargo
     when: cargo_exists is failed
-    shell: /home/onigiri/Downloads/tmp/sh.rustup.rs -y && source /home/onigiri/.cargo/env
+    shell: /home/onigiri/Downloads/tmp/sh.rustup.rs -y
     ignore_errors: yes
     tags:
       - rust
@@ -103,9 +103,14 @@
 
   - name: install nvm
     when: nvm_exists is failed
-    shell: /home/onigiri/Downloads/tmp/nvm-install.sh && source /home/onigiri/.nvm/nvm.sh
+    shell: /home/onigiri/Downloads/tmp/nvm-install.sh
     tags:
-      - node 
+      - node
+    ignore_errors: yes
+
+  - name: source cargo and nvm
+    shell:
+      cmd: source /home/onigiri/.cargo/env && source /home/onigiri/.nvm/nvm.sh 
 
   - name: install node
     shell:
@@ -121,7 +126,7 @@
     when: nvim_exists is failed
     get_url:
       url: https://raw.githubusercontent.com/LunarVim/LunarVim/rolling/utils/installer/install-neovim-from-release
-      dest: /tmp/install-neovim-from-release
+      dest: /home/onigiri/Downloads/tmp/install-neovim-from-release
       mode: '0755'
       force: 'yes'
     tags: 
@@ -130,7 +135,7 @@
 
   - name: install neovim
     when: nvim_exists is failed
-    shell: /tmp/install-neovim-from-release
+    shell: /home/onigiri/Downloads/tmp/install-neovim-from-release
     tags:
       - neovim
       - lunarvim
@@ -145,7 +150,7 @@
     when: lvim_exists is failed
     get_url:
       url: https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh
-      dest: /tmp/lvim-install.sh
+      dest: /home/onigiri/Downloads/tmp/lvim-install.sh
       mode: '0755'
       force: 'yes'
     tags:
@@ -154,7 +159,7 @@
 
   - name: install lunarvim
     when: lvim_exists is failed
-    shell: /tmp/lvim-install.sh
+    shell: /home/onigiri/Downloads/tmp/lvim-install.sh
     tags:
       - neovim
       - lunarvim  
