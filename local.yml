@@ -2,6 +2,7 @@
 - hosts: localhost
   connection: local
   become: 'true'
+  become_user: "{{ lookup('env', 'USER') }}"
 
   pre_tasks:
     - name: update arch repositories
