@@ -108,13 +108,9 @@
       - node
     ignore_errors: yes
 
-  - name: source cargo and nvm
-    shell:
-      cmd: . /home/onigiri/.cargo/env && . /home/onigiri/.nvm/nvm.sh 
-
   - name: install node
     shell:
-      cmd: nvm install node
+      cmd: . /home/onigiri/.nvm/nvm.sh && nvm install node
 
   - name: check if neovim is installed
     shell:
