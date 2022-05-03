@@ -81,6 +81,7 @@
   - name: install rust & cargo
     when: cargo_exists is failed
     shell: /home/onigiri/Downloads/tmp/sh.rustup.rs -y && source /home/onigiri/.cargo/env
+    ignore_errors: yes
     tags:
       - rust
 
