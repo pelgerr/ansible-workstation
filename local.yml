@@ -10,6 +10,7 @@
         update_cache: yes
         upgrade: yes
         force: yes
+      become_user: root
       when: ansible_facts['os_family']|lower == 'archlinux'
 
     - name: update deb repositories
@@ -17,12 +18,14 @@
         update_cache: yes
         upgrade: yes
         force: yes
+      become_user: root
       when: ansible_facts['os_family']|lower == 'debian'
 
     - name: update fedora repositories
       dnf:
         update_cache: yes
         update_only: yes
+      become_user: root
       when: ansible_facts['distribution']|lower == 'fedora'
   vars:
     user: "{{ ansible_user_id }}"
