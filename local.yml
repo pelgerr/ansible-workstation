@@ -1,7 +1,7 @@
 ---
 - hosts: localhost
   connection: local
-  become: true
+  become: 'true'
 
   pre_tasks:
     - name: update arch repositories
@@ -50,9 +50,19 @@
         - fonts-ibm-plex
     when: ansible_facts['distribution']|lower == 'debian'
 
-  - name: install rust
-    shell:
-      cmd: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+  - name: download rust installer
+    get_url: 
+      url: https://sh.rustup.rs
+      dest: /tmp/sh.rustup.rs
+      mode: '0755'
+      force: 'yes'
+    tags: 
+      - rust
+
+  - name: install rust & cargo
+    shell: /tmp/sh.rustup.rs -y
+    tags:
+      - rust
 
   - name: install nvm
     shell:
