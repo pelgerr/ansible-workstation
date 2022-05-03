@@ -2,7 +2,6 @@
 - hosts: localhost
   connection: local
   become: 'true'
-  become_user: "{{ lookup('env', 'USER') }}"
 
   pre_tasks:
     - name: update arch repositories
@@ -10,7 +9,6 @@
         update_cache: yes
         upgrade: yes
         force: yes
-      become_user: root
       when: ansible_facts['os_family']|lower == 'archlinux'
 
     - name: update deb repositories
@@ -18,147 +16,13 @@
         update_cache: yes
         upgrade: yes
         force: yes
-      become_user: root
       when: ansible_facts['os_family']|lower == 'debian'
 
     - name: update fedora repositories
       dnf:
         update_cache: yes
         update_only: yes
-      become_user: root
       when: ansible_facts['distribution']|lower == 'fedora'
-
-  vars:
-    user: "{{ ansible_user_id }}"
-
-  tasks:
-  - name: create temp directory in Downloads
-    file:
-      path: /home/onigiri/Downloads/tmp
-      state: directory
-
-  - name: install packages - base
-    package:
-      name:
-        - htop
-        - sakura
-        - python3
-  
-  - name: install packages - Arch
-    package:
-      name:
-        - yay
-    when: ansible_facts['distribution']|lower == 'archlinux'
-
-  - name: install packages - Fedora
-    package:
-      name:
-        - ibm-plex-fonts-all
-    when: ansible_facts['distribution']|lower == 'fedora'
-
-  - name: install packages - Debian
-    package:
-      name:
-        - fonts-ibm-plex
-    when: ansible_facts['distribution']|lower == 'debian'
-
-  - name: check if cargo is installed
-    shell: 
-      cmd: cargo --version
-    register: cargo_exists
-    ignore_errors: yes
-
-  - name: download rust installer
-    when: cargo_exists is failed
-    get_url: 
-      url: https://sh.rustup.rs
-      dest: /home/onigiri/Downloads/tmp/sh.rustup.rs
-      mode: '0755'
-      force: 'yes'
-    tags: 
-      - rust
-
-  - name: install rust & cargo
-    when: cargo_exists is failed
-    shell: /home/onigiri/Downloads/tmp/sh.rustup.rs -y
-    ignore_errors: yes
-    tags:
-      - rust
-
-  - name: check if nvm is installed
-    shell: 
-      cmd: nvm --version
-    register: nvm_exists
-    ignore_errors: yes
-
-  - name: download nvm installer
-    when: nvm_exists is failed
-    get_url: 
-      url: https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh
-      dest: /home/onigiri/Downloads/tmp/nvm-install.sh
-      mode: '0755'
-      force: 'yes'
-    tags: 
-      - node
-
-  - name: install nvm
-    when: nvm_exists is failed
-    shell: /home/onigiri/Downloads/tmp/nvm-install.sh
-    tags:
-      - node
-    ignore_errors: yes
-
-  - name: install node
-    shell:
-      cmd: . /home/onigiri/.nvm/nvm.sh && nvm install node
-
-  - name: check if neovim is installed
-    shell:
-      cmd: nvim --version
-    register: nvim_exists
-    ignore_errors: yes
-
-  - name: download neovim installer
-    when: nvim_exists is failed
-    get_url:
-      url: https://raw.githubusercontent.com/LunarVim/LunarVim/rolling/utils/installer/install-neovim-from-release
-      dest: /home/onigiri/Downloads/tmp/install-neovim-from-release
-      mode: '0755'
-      force: 'yes'
-    tags: 
-      - neovim
-      - lunarvim
-
-  - name: install neovim
-    when: nvim_exists is failed
-    shell: /home/onigiri/Downloads/tmp/install-neovim-from-release
-    tags:
-      - neovim
-      - lunarvim
-
-  - name: check if lunarvim is installed
-    shell:
-      cmd: lvim --version
-    register: lvim_exists
-    ignore_errors: yes
-
-  - name: download lunarvim installer
-    when: lvim_exists is failed
-    get_url:
-      url: https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh
-      dest: /home/onigiri/Downloads/tmp/lvim-install.sh
-      mode: '0755'
-      force: 'yes'
-    tags:
-      - neovim
-      - lunarvim
-
-  - name: install lunarvim
-    when: lvim_exists is failed
-    shell: /home/onigiri/Downloads/tmp/lvim-install.sh
-    tags:
-      - neovim
-      - lunarvim  
 
   - name: copy custom .bashrc file
     copy:
