@@ -80,7 +80,7 @@
 
   - name: install rust & cargo
     when: cargo_exists is failed
-    shell: /home/onigiri/Downloads/tmp/sh.rustup.rs -y
+    shell: /home/onigiri/Downloads/tmp/sh.rustup.rs -y && source /home/onigiri/.cargo/env
     tags:
       - rust
 
@@ -102,7 +102,7 @@
 
   - name: install nvm
     when: nvm_exists is failed
-    shell: /home/onigiri/Downloads/tmp/nvm-install.sh
+    shell: /home/onigiri/Downloads/tmp/nvm-install.sh && source /home/onigiri/.nvm/nvm.sh
     tags:
       - node 
 
