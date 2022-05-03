@@ -54,7 +54,7 @@
     shell: 
       cmd: cargo --version
     register: cargo_exists
-    ignore_errors: 'yes'
+    ignore_errors: yes
 
   - name: download rust installer
     when: cargo_exists is failed
@@ -76,17 +76,79 @@
     shell:
       cmd: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 
+  - name: check if nvm is installed
+    shell: 
+      cmd: nvm --version
+    register: nvm_exists
+    ignore_errors: yes
+
+  - name: download nvm installer
+    when: nvm_exists is failed
+    get_url: 
+      url: https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh
+      dest: /tmp/nvm-install.sh
+      mode: '0755'
+      force: 'yes'
+    tags: 
+      - node
+
+  - name: install nvm
+    when: nvm_exists is failed
+    shell: /tmp/nvm-install.sh
+    tags:
+      - node 
+
   - name: install node
     shell:
       cmd: nvm install node
 
-  - name: install neovim from release
+  - name: check if neovim is installed
     shell:
-      cmd: curl https://raw.githubusercontent.com/LunarVim/LunarVim/rolling/utils/installer/install-neovim-from-release | bash
+      cmd: nvim --version
+    register: nvim_exists
+    ignore_errors: yes
+
+  - name: download neovim installer
+    when: nvim_exists is failed
+    get_url:
+      url: https://raw.githubusercontent.com/LunarVim/LunarVim/rolling/utils/installer/install-neovim-from-release
+      dest: /tmp/install-neovim-from-release
+      mode: '0755'
+      force: 'yes'
+    tags: 
+      - neovim
+      - lunarvim
+
+  - name: install neovim
+    when: nvim_exists is failed
+    shell: /tmp/install-neovim-from-release
+    tags:
+      - neovim
+      - lunarvim
+
+  - name: check if lunarvim is installed
+    shell:
+      cmd: lvim --version
+    register: lvim_exists
+    ignore_errors: yes
+
+  - name: download lunarvim installer
+    when: lvim_exists is failed
+    get_url:
+      url: https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh
+      dest: /tmp/lvim-install.sh
+      mode: '0755'
+      force: 'yes'
+    tags:
+      - neovim
+      - lunarvim
 
   - name: install lunarvim
-    shell:
-      cmd: curl https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh | bash
+    when: lvim_exists is failed
+    shell: /tmp/lvim-install.sh
+    tags:
+      - neovim
+      - lunarvim  
 
   - name: copy custom .bashrc file
     copy:
