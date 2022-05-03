@@ -72,10 +72,6 @@
     tags:
       - rust
 
-  - name: install nvm
-    shell:
-      cmd: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-
   - name: check if nvm is installed
     shell: 
       cmd: nvm --version
