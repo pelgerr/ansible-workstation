@@ -27,10 +27,16 @@
         update_only: yes
       become_user: root
       when: ansible_facts['distribution']|lower == 'fedora'
+
   vars:
     user: "{{ ansible_user_id }}"
 
   tasks:
+  - name: create temp directory in Downloads
+    file:
+      path: /home/onigiri/Downloads/tmp
+      state: directory
+
   - name: install packages - base
     package:
       name:
