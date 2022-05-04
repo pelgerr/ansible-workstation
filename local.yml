@@ -29,7 +29,7 @@
     package:
       name:
         - htop
-        - fonts-ibm-plex
+        - sakura
 
   - name: copy custom .bashrc file
     copy:
