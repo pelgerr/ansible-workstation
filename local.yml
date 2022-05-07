@@ -42,6 +42,14 @@
       src: files/hack-fonts/Hack.zip
       dest: /home/onigiri/.fonts
 
+  - name: download starship prompt
+    get_url:
+      url: https://starship.rs/install.sh
+      dest: /home/onigiri/Downloads/starship.sh
+
+  - name: install starship prompt
+    shell: /home/onigiri/Downloads/starship.sh
+
   - name: copy custom .bashrc file
     copy:
       src: files/bash/bashrc

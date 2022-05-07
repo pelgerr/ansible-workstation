@@ -118,3 +118,6 @@ fi
 
 # Add /home/onigiri/.local/bin to PATH
 export PATH=$PATH:/home/onigiri/.local/bin
+
+# Initialize Starship prompt
+eval "$(starship init bash)"
