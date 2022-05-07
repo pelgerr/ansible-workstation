@@ -38,7 +38,7 @@
       state: directory
 
   - name: install nerd hack fonts
-    unarchive:
+    ansible.builtin.unarchive:
       src: files/hack-fonts/Hack.zip
       dest: /home/onigiri/.fonts
 
