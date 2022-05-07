@@ -31,6 +31,7 @@
         - htop
         - sakura
         - neovim
+        - unzip
 
   - name: create .fonts directory
     file:
@@ -38,7 +39,7 @@
       state: directory
 
   - name: install nerd hack fonts
-    ansible.builtin.unarchive:
+    unarchive:
       src: files/hack-fonts/Hack.zip
       dest: /home/onigiri/.fonts
 
