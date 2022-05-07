@@ -1,7 +1,7 @@
 ---
 - hosts: localhost
   connection: local
-  become: true
+  become: 'true'
 
   pre_tasks:
     - name: update arch repositories
@@ -133,22 +133,3 @@
       group: onigiri
     when: ansible_facts['os_family']|lower == 'fedora'
 
-#  - name: add ansible user
-#    user:
-#      name: tractor
-#      system: yes
-#
-#  - name: set up sudo for ansible user
-#    copy:
-#      src: files/bash/sudoer_tractor
-#      dest: /etc/sudoers.d/tractor
-#      owner: root
-#      group: root
-#      mode: 0440
-#
-#  - name: add ansible-pull cron job
-#    cron:
-#      name: ansible auto-provision
-#      user: tractor
-#      minute: "*/10"
-#      job: ansible-pull -o -U https://gitlab.com/onigiri070/ansible_workstation.git 
