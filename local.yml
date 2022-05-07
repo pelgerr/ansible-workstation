@@ -64,7 +64,9 @@
     get_url:
       url: https://starship.rs/install.sh
       dest: /home/onigiri/Downloads/starship.sh
-      mode: 0755
+      mode: '0755'
+      owner: onigiri
+      group: onigiri
 
   - name: install starship prompt
     shell:
