@@ -33,10 +33,27 @@
         - neovim
         - unzip
 
+  - name: check if .fonts exists
+    stat:
+      path: /home/onigiri/.fonts
+    register: fonts_directory
+
+  - name: check if ~/Downloads exists
+    stat:
+      path: /home/onigiri/Downloads
+    register: downloads_directory
+
   - name: create .fonts directory
     file:
       path: /home/onigiri/.fonts
       state: directory
+    when: not fonts_directory.stat.exists
+
+  - name: create Downloads directory
+    file:
+      path: /home/onigiri/Downloads
+      state: directory
+    when: not downloads_directory.stat.exists
 
   - name: install nerd hack fonts
     unarchive:
