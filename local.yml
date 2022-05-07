@@ -33,6 +33,11 @@
         - neovim
         - unzip
 
+  - name: check if .config exists
+    stat:
+      path: /home/onigiri/.config
+    register: config_directory
+
   - name: check if .fonts exists
     stat:
       path: /home/onigiri/.fonts
@@ -43,16 +48,28 @@
       path: /home/onigiri/Downloads
     register: downloads_directory
 
+  - name: create .config directory
+    file:
+      path: /home/onigiri/.config
+      state: directory
+      owner: onigiri
+      group: onigiri
+    when: not config_directory.stat.exists
+
   - name: create .fonts directory
     file:
       path: /home/onigiri/.fonts
       state: directory
+      owner: onigiri
+      group: onigiri
     when: not fonts_directory.stat.exists
 
   - name: create Downloads directory
     file:
       path: /home/onigiri/Downloads
       state: directory
+      owner: onigiri
+      group: onigiri
     when: not downloads_directory.stat.exists
 
   - name: install nerd hack fonts
@@ -72,7 +89,6 @@
     shell:
       cmd: /home/onigiri/Downloads/starship.sh --yes
       executable: /bin/sh
-    become: yes
 
   - name: copy custom .bashrc file
     copy:
