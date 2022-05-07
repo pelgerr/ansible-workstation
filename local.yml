@@ -32,6 +32,16 @@
         - sakura
         - neovim
 
+  - name: create .fonts directory
+    file:
+      path: /home/onigiri/.fonts
+      state: directory
+
+  - name: install nerd hack fonts
+    unarchive:
+      src: files/hack-fonts/Hack.zip
+      dest: /home/onigiri/.fonts
+
   - name: copy custom .bashrc file
     copy:
       src: files/bash/bashrc
