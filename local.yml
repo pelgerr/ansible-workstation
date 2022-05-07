@@ -67,8 +67,10 @@
       mode: 0755
 
   - name: install starship prompt
-    shell: /home/onigiri/Downloads/starship.sh -y
-    become: true
+    shell:
+      cmd: /home/onigiri/Downloads/starship.sh --yes
+      executable: /bin/sh
+    become: yes
 
   - name: copy custom .bashrc file
     copy:
