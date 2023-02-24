@@ -1,2 +1,4 @@
 # ansible_workstation
-Ansible configuration for workstations
+Ansible playbook configuration for workstations.
+
+Server playbook coming soon to a repo near you.
